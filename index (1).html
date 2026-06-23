@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Child Care Guide App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --mint:#2ECC9A;--mint-dark:#1DA87E;--mint-light:#E0F7EF;
+  --sky:#4BA8E8;--sky-light:#EAF4FD;
+  --lav:#A78BFA;--lav-light:#EDE9FE;
+  --peach:#F97B4A;--peach-light:#FEF0E3;
+  --rose:#F471A0;--rose-light:#FDE8F2;
+  --amber:#F5A623;--amber-light:#FEF6E4;
+  --red:#EF4444;--red-light:#FEE2E2;
+  --cream:#F7F8FA;--white:#fff;
+  --text:#1A2535;--textsub:#526070;--textmuted:#8D9BAA;
+  --border:rgba(0,0,0,0.07);--bordermed:rgba(0,0,0,0.12);
+  --rsm:12px;--rmd:18px;--rlg:28px;
+  --ssm:0 2px 12px rgba(0,0,0,0.06);
+  --smd:0 8px 32px rgba(0,0,0,0.09);
+  --slg:0 20px 60px rgba(0,0,0,0.11);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Lato',sans-serif;background:var(--cream);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .5s cubic-bezier(.22,.68,0,1.2),transform .5s cubic-bezier(.22,.68,0,1.2)}
+.reveal.vis{opacity:1;transform:none}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}
+.d4{transition-delay:.28s}.d5{transition-delay:.35s}.d6{transition-delay:.42s}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,5vw,3rem)}
+.nav-brand{display:flex;align-items:center;gap:10px;font-family:'Nunito',sans-serif;font-weight:800;font-size:1.05rem;color:var(--text);text-decoration:none}
+.logo-box{width:36px;height:36px;background:linear-gradient(135deg,var(--mint),var(--sky));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 3px 10px rgba(46,204,154,.35)}
+.nav-links{display:flex;gap:1.4rem;list-style:none;align-items:center}
+.nav-links a{font-size:.875rem;font-weight:600;color:var(--textsub);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--mint-dark)}
+.nav-cta{background:var(--mint)!important;color:#fff!important;padding:.42rem 1.1rem!important;border-radius:999px!important;font-weight:700!important;box-shadow:0 3px 12px rgba(46,204,154,.32);transition:background .2s,transform .15s!important}
+.nav-cta:hover{background:var(--mint-dark)!important;transform:translateY(-1px)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+
+/* HERO */
+.hero{padding:clamp(2rem,6vw,4.5rem) clamp(1rem,5vw,3rem) clamp(1rem,3vw,2rem);max-width:980px;margin:0 auto;text-align:center}
+.hero-banner{width:100%;max-height:440px;object-fit:cover;border-radius:var(--rlg);box-shadow:var(--slg);display:block;margin-bottom:2.5rem;transition:transform .4s,box-shadow .4s}
+.hero-banner:hover{transform:scale(1.007);box-shadow:0 28px 70px rgba(0,0,0,.14)}
+.hero-placeholder{width:100%;height:clamp(200px,38vw,440px);border-radius:var(--rlg);box-shadow:var(--slg);background:linear-gradient(135deg,#b8f0da,#a8d9f5,#d5ccfe);display:none;flex-direction:column;align-items:center;justify-content:center;gap:1rem;margin-bottom:2.5rem;position:relative;overflow:hidden}
+.hero-placeholder::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")}
+.ph-emoji{font-size:clamp(3rem,8vw,5rem);position:relative}
+.ph-text{font-family:'Nunito',sans-serif;font-weight:700;font-size:clamp(1rem,3vw,1.4rem);color:rgba(26,37,53,.65);position:relative}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;background:var(--mint-light);color:var(--mint-dark);font-size:.78rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:.3rem 1rem;border-radius:999px;margin-bottom:1rem;border:1px solid rgba(46,204,154,.25)}
+.hero h1{font-family:'Nunito',sans-serif;font-size:clamp(2rem,5.5vw,3.1rem);font-weight:900;line-height:1.18;margin-bottom:.8rem;letter-spacing:-.025em}
+.hero h1 .acc{background:linear-gradient(90deg,var(--mint-dark),var(--sky));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tagline{font-size:clamp(1rem,2.5vw,1.18rem);color:var(--textsub);max-width:520px;margin:0 auto 2rem;line-height:1.7}
+.hero-btns{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.25rem}
+.btn-p{background:var(--mint);color:#fff;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;padding:.9rem 2.4rem;border:none;border-radius:999px;cursor:pointer;box-shadow:0 4px 20px rgba(46,204,154,.42);transition:background .2s,transform .16s,box-shadow .2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn-p:hover{background:var(--mint-dark);transform:translateY(-2px);box-shadow:0 10px 30px rgba(46,204,154,.48)}
+.btn-s{background:#fff;color:var(--text);font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;padding:.9rem 2rem;border:1.5px solid var(--bordermed);border-radius:999px;cursor:pointer;transition:border-color .2s,transform .16s,background .2s;text-decoration:none;display:inline-block}
+.btn-s:hover{border-color:var(--mint);background:var(--mint-light);transform:translateY(-2px)}
+.trust{display:flex;align-items:center;justify-content:center;gap:.5rem;font-size:.82rem;color:var(--textmuted);margin-top:.75rem;flex-wrap:wrap}
+.tdot{width:4px;height:4px;background:var(--bordermed);border-radius:50%}
+
+/* STATS */
+.stats-strip{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.5rem clamp(1rem,5vw,3rem);margin-bottom:3rem}
+.stats-inner{max-width:980px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;text-align:center}
+.stat-num{font-family:'Nunito',sans-serif;font-size:clamp(1.5rem,4vw,2rem);font-weight:900;line-height:1;margin-bottom:.3rem}
+.stat-num span{color:var(--mint-dark)}
+.stat-lbl{font-size:.8rem;color:var(--textmuted);font-weight:600}
+
+/* SECTION */
+.sec{max-width:980px;margin:0 auto;padding:0 clamp(1rem,5vw,3rem)}
+.sec-hd{margin-bottom:1.5rem}
+.sec-eye{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mint-dark);margin-bottom:.3rem}
+.sec-title{font-family:'Nunito',sans-serif;font-size:clamp(1.25rem,3vw,1.6rem);font-weight:800;letter-spacing:-.01em}
+
+/* AGE TABS */
+.age-tabs{display:flex;gap:.65rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.age-tab{display:flex;align-items:center;gap:8px;padding:.65rem 1.3rem;border-radius:var(--rsm);border:1.5px solid var(--bordermed);background:#fff;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:700;color:var(--textsub);transition:all .22s cubic-bezier(.22,.68,0,1.2);box-shadow:var(--ssm)}
+.age-tab:hover{border-color:var(--mint);color:var(--mint-dark);transform:translateY(-2px);box-shadow:0 6px 20px rgba(46,204,154,.18)}
+.age-tab.active{background:var(--mint);border-color:var(--mint);color:#fff;box-shadow:0 6px 20px rgba(46,204,154,.35);transform:translateY(-1px)}
+
+/* AGE PANELS */
+.age-panel{display:none}
+.age-panel.active{display:block}
+
+/* CATEGORY GRID */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:1rem}
+.cat-btn{border-radius:var(--rmd);border:1.5px solid transparent;padding:1.6rem 1rem 1.3rem;text-align:center;cursor:pointer;transition:transform .25s cubic-bezier(.22,.68,0,1.3),box-shadow .22s,border-color .22s;background:none;width:100%;box-shadow:var(--ssm)}
+.cat-btn:hover{transform:translateY(-5px)}
+.cat-btn.cc-mint{background:var(--mint-light);border-color:rgba(46,204,154,.25)}
+.cat-btn.cc-sky{background:var(--sky-light);border-color:rgba(75,168,232,.25)}
+.cat-btn.cc-lav{background:var(--lav-light);border-color:rgba(167,139,250,.3)}
+.cat-btn.cc-peach{background:var(--peach-light);border-color:rgba(249,123,74,.25)}
+.cat-btn.cc-rose{background:var(--rose-light);border-color:rgba(244,113,160,.25)}
+.cat-btn.cc-amber{background:var(--amber-light);border-color:rgba(245,166,35,.3)}
+.cat-btn.cc-red{background:var(--red-light);border-color:rgba(239,68,68,.25)}
+.cat-btn.cc-mint:hover{box-shadow:0 10px 32px rgba(46,204,154,.25);border-color:var(--mint)}
+.cat-btn.cc-sky:hover{box-shadow:0 10px 32px rgba(75,168,232,.25);border-color:var(--sky)}
+.cat-btn.cc-lav:hover{box-shadow:0 10px 32px rgba(167,139,250,.25);border-color:var(--lav)}
+.cat-btn.cc-peach:hover{box-shadow:0 10px 32px rgba(249,123,74,.25);border-color:var(--peach)}
+.cat-btn.cc-rose:hover{box-shadow:0 10px 32px rgba(244,113,160,.25);border-color:var(--rose)}
+.cat-btn.cc-amber:hover{box-shadow:0 10px 32px rgba(245,166,35,.25);border-color:var(--amber)}
+.cat-btn.cc-red:hover{box-shadow:0 10px 32px rgba(239,68,68,.25);border-color:var(--red)}
+.cat-icon{font-size:2.4rem;margin-bottom:.65rem;line-height:1;display:block}
+.cat-name{font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:800;color:var(--text);display:block}
+
+/* CONTENT PANELS */
+.content-area{margin-top:2rem;margin-bottom:3.5rem}
+.content-panel{display:none;animation:fadeIn .35s ease}
+.content-panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* CONTENT CARDS */
+.content-card{background:#fff;border-radius:var(--rmd);border:1px solid var(--border);box-shadow:var(--ssm);overflow:hidden;margin-bottom:1.25rem}
+.card-head{padding:1.1rem 1.4rem;display:flex;align-items:center;gap:.75rem;border-bottom:1px solid var(--border)}
+.card-head-icon{font-size:1.5rem}
+.card-head h3{font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;color:var(--text)}
+.card-body{padding:1.25rem 1.4rem}
+
+/* SUB-SECTION */
+.sub-section{margin-bottom:1.25rem}
+.sub-title{font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:800;color:var(--textsub);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+
+/* LIST */
+.content-list{list-style:none;display:grid;gap:.45rem}
+.content-list li{display:flex;align-items:flex-start;gap:.55rem;font-size:.9rem;color:var(--textsub)}
+.content-list li::before{content:'•';color:var(--mint-dark);font-weight:700;flex-shrink:0;margin-top:.05em}
+
+/* PROBLEM CARDS */
+.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}
+.problem-card{background:var(--cream);border-radius:var(--rsm);padding:1.1rem;border:1px solid var(--border)}
+.problem-title{font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:800;color:var(--text);margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem}
+.prob-section-label{font-size:.75rem;font-weight:700;color:var(--textmuted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.35rem;margin-top:.65rem}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.data-table th{background:var(--mint-light);color:var(--mint-dark);font-family:'Nunito',sans-serif;font-weight:800;padding:.65rem .9rem;text-align:left;font-size:.8rem;letter-spacing:.04em}
+.data-table td{padding:.6rem .9rem;border-bottom:1px solid var(--border);color:var(--textsub)}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:var(--cream)}
+
+/* SLEEP BADGE */
+.sleep-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--lav-light);color:var(--lav);border-radius:var(--rsm);padding:.6rem 1rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem;margin:.3rem .3rem .3rem 0;border:1px solid rgba(167,139,250,.25)}
+
+/* WARNING */
+.warning-box{background:var(--red-light);border:1.5px solid rgba(239,68,68,.3);border-radius:var(--rmd);padding:1.4rem;margin-bottom:3.5rem}
+.warning-box h3{font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;color:#DC2626;margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem}
+.warning-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.5rem}
+.warning-item{display:flex;align-items:flex-start;gap:.5rem;font-size:.88rem;color:#7F1D1D}
+.warning-item::before{content:'🚨';flex-shrink:0;font-size:.85rem}
+
+/* MEDICINE NOTE */
+.med-note{background:var(--amber-light);border:1.5px solid rgba(245,166,35,.35);border-radius:var(--rsm);padding:1rem 1.2rem;margin-bottom:2rem;font-size:.88rem;color:#92400E;display:flex;gap:.6rem;align-items:flex-start}
+
+/* FEATURES */
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;margin-bottom:4rem}
+.feat-card{background:#fff;border-radius:var(--rmd);border:1px solid var(--border);padding:1.5rem;box-shadow:var(--ssm);display:flex;gap:1rem;align-items:flex-start;transition:box-shadow .22s,transform .22s;position:relative;overflow:hidden}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:3px 3px 0 0;opacity:0;transition:opacity .22s}
+.feat-card:hover{box-shadow:var(--smd);transform:translateY(-3px)}
+.feat-card:hover::before{opacity:1}
+.fc-g::before{background:var(--mint)}.fc-b::before{background:var(--sky)}.fc-p::before{background:var(--lav)}.fc-o::before{background:var(--peach)}
+.fi{width:46px;height:46px;border-radius:var(--rsm);display:flex;align-items:center;justify-content:center;font-size:1.45rem;flex-shrink:0}
+.fi-g{background:var(--mint-light)}.fi-b{background:var(--sky-light)}.fi-p{background:var(--lav-light)}.fi-o{background:var(--peach-light)}
+.feat-card h3{font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:800;margin-bottom:.3rem}
+.feat-card p{font-size:.85rem;color:var(--textsub);line-height:1.6}
+
+/* TESTIMONIALS */
+.testi-wrap{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3rem clamp(1rem,5vw,3rem);margin-bottom:3.5rem}
+.testi-inner{max-width:980px;margin:0 auto}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;margin-top:1.75rem}
+.testi-card{background:var(--cream);border-radius:var(--rmd);border:1px solid var(--border);padding:1.4rem;transition:box-shadow .2s,transform .2s}
+.testi-card:hover{box-shadow:var(--smd);transform:translateY(-2px)}
+.testi-stars{font-size:.9rem;margin-bottom:.65rem}
+.testi-q{font-size:.88rem;color:var(--textsub);line-height:1.65;margin-bottom:1rem;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:.65rem}
+.testi-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.av-m{background:var(--mint-light)}.av-s{background:var(--sky-light)}.av-l{background:var(--lav-light)}
+.testi-name{font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700}
+.testi-role{font-size:.75rem;color:var(--textmuted)}
+
+/* FOOTER */
+footer{background:var(--text);color:rgba(255,255,255,.55);padding:2.5rem clamp(1rem,5vw,3rem)}
+.foot-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.foot-brand{font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:#fff;display:flex;align-items:center;gap:8px;text-decoration:none}
+.foot-logo{width:30px;height:30px;background:linear-gradient(135deg,var(--mint),var(--sky));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.foot-copy{font-size:.78rem}
+.foot-copy span{color:var(--mint)}
+.foot-links{display:flex;gap:1.25rem}
+.foot-links a{font-size:.78rem;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s}
+.foot-links a:hover{color:var(--mint)}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+  .nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:62px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);padding:1rem 1.5rem;gap:1rem;z-index:199}
+  .hamburger{display:flex}
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .hero-placeholder{height:52vw}
+  .cat-grid{grid-template-columns:repeat(3,1fr);gap:.75rem}
+  .cat-btn{padding:1.1rem .5rem .9rem}
+  .cat-icon{font-size:1.9rem}
+  .cat-name{font-size:.78rem}
+  .foot-inner{flex-direction:column;text-align:center}
+  .foot-links{justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}.reveal{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">
+    <div class="logo-box">🌿</div>
+    Child Care Guide
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#guide">Guide</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#guide" class="nav-cta">Get Started</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-banner reveal"
+    src="images/child-care-banner.png"
+    alt="Child Care Guide App Banner"
+    loading="eager" decoding="async" width="960" height="440"
+    onerror="this.style.display='none';document.getElementById('ph').style.display='flex'">
+  <div class="hero-placeholder reveal" id="ph">
+    <div class="ph-emoji">👶🌱</div>
+    <div class="ph-text">Child Care Guide App</div>
+  </div>
+
+  <div class="eyebrow reveal d1">🌟 Trusted by parents worldwide</div>
+  <h1 class="reveal d2">Child Care Guide <span class="acc">App</span></h1>
+  <p class="tagline reveal d3">Helping Parents Care for Their Children with Confidence.</p>
+  <div class="hero-btns reveal d4">
+    <a href="#guide" class="btn-p">Get Started →</a>
+    <a href="#features" class="btn-s">Learn More</a>
+  </div>
+  <div class="trust reveal d5">
+    <span>Birth to 12 years</span>
+    <div class="tdot"></div>
+    <span>Milestones · Nutrition · Sleep · Health</span>
+    <div class="tdot"></div>
+    <span>Free to use</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip reveal">
+  <div class="stats-inner">
+    <div class="stat-num reveal d1"><span id="s1">10K+</span><div class="stat-lbl">Parents using the app</div></div>
+    <div class="stat-num reveal d2"><span id="s2">50+</span><div class="stat-lbl">Health topics covered</div></div>
+    <div class="stat-num reveal d3"><span>12</span><div class="stat-lbl">Years of age covered</div></div>
+    <div class="stat-num reveal d4"><span>4.9★</span><div class="stat-lbl">Average parent rating</div></div>
+  </div>
+</div>
+
+<!-- MEDICINE NOTE -->
+<div class="sec" style="margin-bottom:1rem">
+  <div class="med-note reveal">
+    <span style="font-size:1.2rem;flex-shrink:0">⚠️</span>
+    <div><strong>Important:</strong> Medicine should only be given according to a doctor's advice and the child's age/weight. The information below is educational and not a substitute for medical care.</div>
+  </div>
+</div>
+
+<!-- GUIDE -->
+<div class="sec" id="guide">
+  <div class="sec-hd reveal">
+    <div class="sec-eye">Child Development Guide</div>
+    <div class="sec-title">Select your child's age group</div>
+  </div>
+
+  <div class="age-tabs reveal d1" role="tablist">
+    <button class="age-tab active" data-age="age0" role="tab" aria-selected="true">🍼 0–2 Years</button>
+    <button class="age-tab" data-age="age3" role="tab" aria-selected="false">🧒 3–6 Years</button>
+    <button class="age-tab" data-age="age7" role="tab" aria-selected="false">🎒 7–12 Years</button>
+  </div>
+
+  <!-- ── 0–2 YEARS ───────────────────────────────── -->
+  <div class="age-panel active" id="age0">
+
+    <!-- Categories -->
+    <div class="cat-grid reveal">
+      <button class="cat-btn cc-mint active-cat" data-panel="p0-milestones" onclick="showPanel('age0','p0-milestones')">
+        <span class="cat-icon">📈</span><span class="cat-name">Milestones</span>
+      </button>
+      <button class="cat-btn cc-sky" data-panel="p0-activities" onclick="showPanel('age0','p0-activities')">
+        <span class="cat-icon">🎮</span><span class="cat-name">Activities</span>
+      </button>
+      <button class="cat-btn cc-lav" data-panel="p0-nutrition" onclick="showPanel('age0','p0-nutrition')">
+        <span class="cat-icon">🥦</span><span class="cat-name">Nutrition</span>
+      </button>
+      <button class="cat-btn cc-peach" data-panel="p0-sleep" onclick="showPanel('age0','p0-sleep')">
+        <span class="cat-icon">🌙</span><span class="cat-name">Sleep</span>
+      </button>
+      <button class="cat-btn cc-rose" data-panel="p0-growth" onclick="showPanel('age0','p0-growth')">
+        <span class="cat-icon">⚖️</span><span class="cat-name">Growth</span>
+      </button>
+      <button class="cat-btn cc-amber" data-panel="p0-problems" onclick="showPanel('age0','p0-problems')">
+        <span class="cat-icon">🩺</span><span class="cat-name">Health</span>
+      </button>
+    </div>
+
+    <div class="content-area">
+
+      <!-- MILESTONES 0-2 -->
+      <div class="content-panel active" id="p0-milestones">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--mint-light)">
+            <span class="card-head-icon">📈</span>
+            <h3>Developmental Milestones — 0 to 2 Years</h3>
+          </div>
+          <div class="card-body">
+            <div class="sub-section">
+              <div class="sub-title">0–6 Months</div>
+              <ul class="content-list">
+                <li>Smiles at people</li>
+                <li>Recognizes parents</li>
+                <li>Holds head up</li>
+                <li>Rolls over</li>
+                <li>Starts babbling</li>
+                <li>Reaches for toys</li>
+              </ul>
+            </div>
+            <div class="sub-section">
+              <div class="sub-title">6–12 Months</div>
+              <ul class="content-list">
+                <li>Sits without support</li>
+                <li>Crawls</li>
+                <li>Pulls to stand</li>
+                <li>Says simple words ("mama", "dada")</li>
+                <li>Picks up small objects</li>
+              </ul>
+            </div>
+            <div class="sub-section">
+              <div class="sub-title">12–24 Months</div>
+              <ul class="content-list">
+                <li>Walks independently</li>
+                <li>Runs and climbs</li>
+                <li>Uses 20–50 words</li>
+                <li>Follows simple instructions</li>
+                <li>Points to body parts</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACTIVITIES 0-2 -->
+      <div class="content-panel" id="p0-activities">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--sky-light)">
+            <span class="card-head-icon">🎮</span>
+            <h3>Activities — 0 to 2 Years</h3>
+          </div>
+          <div class="card-body">
+            <ul class="content-list">
+              <li>Tummy time</li>
+              <li>Soft toys</li>
+              <li>Peek-a-boo</li>
+              <li>Reading picture books</li>
+              <li>Singing nursery rhymes</li>
+              <li>Stacking blocks</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- NUTRITION 0-2 -->
+      <div class="content-panel" id="p0-nutrition">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--lav-light)">
+            <span class="card-head-icon">🥦</span>
+            <h3>Nutrition — 0 to 2 Years</h3>
+          </div>
+          <div class="card-body">
+            <div class="sub-section">
+              <div class="sub-title">0–6 Months</div>
+              <ul class="content-list">
+                <li>Exclusive breastfeeding</li>
+              </ul>
+            </div>
+            <div class="sub-section">
+              <div class="sub-title">6–12 Months</div>
+              <ul class="content-list">
+                <li>Breast milk / formula</li>
+                <li>Mashed banana</li>
+                <li>Apple puree</li>
+                <li>Rice cereal</li>
+                <li>Yogurt</li>
+                <li>Mashed vegetables</li>
+              </ul>
+            </div>
+            <div class="sub-section">
+              <div class="sub-title">1–2 Years</div>
+              <ul class="content-list">
+                <li>Milk</li>
+                <li>Eggs</li>
+                <li>Chicken</li>
+                <li>Fish</li>
+                <li>Fruits</li>
+                <li>Vegetables</li>
+                <li>Whole grains</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLEEP 0-2 -->
+      <div class="content-panel" id="p0-sleep">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--peach-light)">
+            <span class="card-head-icon">🌙</span>
+            <h3>Sleep — 0 to 2 Years</h3>
+          </div>
+          <div class="card-body">
+            <div style="display:flex;flex-wrap:wrap;gap:.5rem">
+              <div class="sleep-badge">🍼 Newborn: 14–17 hrs/day</div>
+              <div class="sleep-badge">👶 6–12 months: 12–16 hrs/day</div>
+              <div class="sleep-badge">🧒 1–2 years: 11–14 hrs/day</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GROWTH 0-2 -->
+      <div class="content-panel" id="p0-growth">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--rose-light)">
+            <span class="card-head-icon">⚖️</span>
+            <h3>Average Growth & Weight — 0 to 2 Years</h3>
+          </div>
+          <div class="card-body">
+            <table class="data-table">
+              <thead><tr><th>Age</th><th>Weight</th></tr></thead>
+              <tbody>
+                <tr><td>Birth</td><td>2.5–4 kg</td></tr>
+                <tr><td>6 Months</td><td>6–8 kg</td></tr>
+                <tr><td>12 Months</td><td>8–11 kg</td></tr>
+                <tr><td>24 Months</td><td>10–14 kg</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEALTH 0-2 -->
+      <div class="content-panel" id="p0-problems">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--amber-light)">
+            <span class="card-head-icon">🩺</span>
+            <h3>Common Problems & Symptoms — 0 to 2 Years</h3>
+          </div>
+          <div class="card-body">
+            <div class="problem-grid">
+
+              <div class="problem-card">
+                <div class="problem-title">🌡️ Fever</div>
+                <div class="prob-section-label">Symptoms</div>
+                <ul class="content-list">
+                  <li>Temperature above 38°C</li>
+                  <li>Irritability</li>
+                  <li>Reduced feeding</li>
+                </ul>
+                <div class="prob-section-label">What to do</div>
+                <ul class="content-list">
+                  <li>Keep hydrated</li>
+                  <li>Light clothing</li>
+                  <li>Doctor-approved fever medicine</li>
+                </ul>
+              </div>
+
+              <div class="problem-card">
+                <div class="problem-title">🤧 Cold & Cough</div>
+                <div class="prob-section-label">Symptoms</div>
+                <ul class="content-list">
+                  <li>Runny nose</li>
+                  <li>Sneezing</li>
+                  <li>Mild cough</li>
+                </ul>
+                <div class="prob-section-label">What to do</div>
+                <ul class="content-list">
+                  <li>Saline nasal drops</li>
+                  <li>Plenty of fluids</li>
+                  <li>Humidified air</li>
+                </ul>
+              </div>
+
+              <div class="problem-card">
+                <div class="problem-title">💧 Diarrhea</div>
+                <div class="prob-section-label">Symptoms</div>
+                <ul class="content-list">
+                  <li>Loose stools</li>
+                  <li>Dehydration signs</li>
+                </ul>
+                <div class="prob-section-label">What to do</div>
+                <ul class="content-list">
+                  <li>Give ORS</li>
+                  <li>Continue feeding</li>
+                  <li>Seek medical help if severe</li>
+                </ul>
+              </div>
+
+              <div class="problem-card">
+                <div class="problem-title">🦷 Teething</div>
+                <div class="prob-section-label">Symptoms</div>
+                <ul class="content-list">
+                  <li>Drooling</li>
+                  <li>Chewing objects</li>
+                  <li>Irritability</li>
+                </ul>
+                <div class="prob-section-label">What to do</div>
+                <ul class="content-list">
+                  <li>Teething rings</li>
+                  <li>Gentle gum massage</li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content-area -->
+  </div><!-- /age0 -->
+
+
+  <!-- ── 3–6 YEARS ───────────────────────────────── -->
+  <div class="age-panel" id="age3">
+
+    <div class="cat-grid reveal">
+      <button class="cat-btn cc-mint active-cat" data-panel="p3-milestones" onclick="showPanel('age3','p3-milestones')">
+        <span class="cat-icon">📈</span><span class="cat-name">Milestones</span>
+      </button>
+      <button class="cat-btn cc-sky" data-panel="p3-activities" onclick="showPanel('age3','p3-activities')">
+        <span class="cat-icon">🎮</span><span class="cat-name">Activities</span>
+      </button>
+      <button class="cat-btn cc-lav" data-panel="p3-nutrition" onclick="showPanel('age3','p3-nutrition')">
+        <span class="cat-icon">🥦</span><span class="cat-name">Nutrition</span>
+      </button>
+      <button class="cat-btn cc-peach" data-panel="p3-sleep" onclick="showPanel('age3','p3-sleep')">
+        <span class="cat-icon">🌙</span><span class="cat-name">Sleep</span>
+      </button>
+      <button class="cat-btn cc-rose" data-panel="p3-growth" onclick="showPanel('age3','p3-growth')">
+        <span class="cat-icon">⚖️</span><span class="cat-name">Growth</span>
+      </button>
+      <button class="cat-btn cc-amber" data-panel="p3-problems" onclick="showPanel('age3','p3-problems')">
+        <span class="cat-icon">🩺</span><span class="cat-name">Health</span>
+      </button>
+      <button class="cat-btn cc-sky" data-panel="p3-learning" onclick="showPanel('age3','p3-learning')">
+        <span class="cat-icon">📚</span><span class="cat-name">Learning</span>
+      </button>
+    </div>
+
+    <div class="content-area">
+
+      <div class="content-panel active" id="p3-milestones">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--mint-light)">
+            <span class="card-head-icon">📈</span>
+            <h3>Developmental Milestones — 3 to 6 Years</h3>
+          </div>
+          <div class="card-body">
+            <ul class="content-list">
+              <li>Speaks complete sentences</li>
+              <li>Knows colors and shapes</li>
+              <li>Dresses independently</li>
+              <li>Counts numbers</li>
+              <li>Plays with friends</li>
+              <li>Follows rules</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-panel" id="p3-activities">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--sky-light)">
+            <span class="card-head-icon">🎮</span>
+            <h3>Activities — 3 to 6 Years</h3>
+          </div>
+          <div class="card-body">
+            <ul class="content-list">
+              <li>Drawing</li>
+              <li>Coloring</li>
+              <li>Puzzle games</li>
+              <li>Building blocks</li>
+              <li>Outdoor play</li>
+              <li>Storytelling</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-panel" id="p3-nutrition">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--lav-light)">
+            <span class="card-head-icon">🥦</span>
+            <h3>Nutrition — 3 to 6 Years</h3>
+          </div>
+          <div class="card-body">
+            <ul class="content-list">
+              <li>Milk</li>
+              <li>Eggs</li>
+              <li>Chicken</li>
+              <li>Fish</li>
+              <li>Lentils</li>
+              <li>Fruits</li>
+              <li>Vegetables</li>
+              <li>Nuts (if age-appropriate)</li>
+              <li>Whole wheat bread</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-panel" id="p3-sleep">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--peach-light)">
+            <span class="card-head-icon">🌙</span>
+            <h3>Sleep — 3 to 6 Years</h3>
+          </div>
+          <div class="card-body">
+            <div style="display:flex;flex-wrap:wrap;gap:.5rem">
+              <div class="sleep-badge">🧒 3–6 years: 10–13 hrs/day</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-panel" id="p3-growth">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--rose-light)">
+            <span class="card-head-icon">⚖️</span>
+            <h3>Average Weight — 3 to 6 Years</h3>
+          </div>
+          <div class="card-body">
+            <table class="data-table">
+              <thead><tr><th>Age</th><th>Weight</th></tr></thead>
+              <tbody>
+                <tr><td>3 Years</td><td>12–16 kg</td></tr>
+                <tr><td>4 Years</td><td>14–18 kg</td></tr>
+                <tr><td>5 Years</td><td>16–21 kg</td></tr>
+                <tr><td>6 Years</td><td>18–25 kg</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-panel" id="p3-problems">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--amber-light)">
+            <span class="card-head-icon">🩺</span>
+            <h3>Common Problems — 3 to 6 Years</h3>
+          </div>
+          <div class="card-body">
+            <div class="problem-grid">
+
+              <div class="problem-card">
+                <div class="problem-title">🤧 Cold & Flu</div>
+                <div class="prob-section-label">Symptoms</div>
+                <ul class="content-list">
+                  <li>Fever</li>
+                  <li>Runny nose</li>
+                  <li>Cough</li>
+                </ul>
+                <div class="prob-section-label">Solution</div>
+                <ul class="content-list">
+                  <li>Rest</li>
+                  <li>Plenty of fluids</li>
+                  <li>Medical advice if symptoms worsen</li>
+                </ul>
+              </div>
+
+              <div class="problem-card">
+                <div class="problem-title">🚽 Constipation</div>
+                <div class="prob-section-label">Symptoms</div>
+                <ul class="content-list">
+                  <li>Hard stools</li>
+                  <li>Stomach pain</li>
+                </ul>
+                <div class="prob-section-label">Solution</div>
+                <ul class="content-list">
+                  <li>Water</li>
+                  <li>Fruits</li>
+                  <li>Vegetables</li>
+                  <li>Physical activity</li>
+                </ul>
+              </div>
+
+              <div class="problem-card">
+                <div class="problem-title">🌸 Allergies</div>
+                <div class="prob-section-label">Symptoms</div>
+                <ul class="content-list">
+                  <li>Itchy skin</li>
+                  <li>Sneezing</li>
+                  <li>Rash</li>
+                </ul>
+                <div class="prob-section-label">Solution</div>
+                <ul class="content-list">
+                  <li>Avoid triggers</li>
+                  <li>Consult doctor</li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-panel" id="p3-learning">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--sky-light)">
+            <span class="card-head-icon">📚</span>
+            <h3>Learning Skills — 3 to 6 Years</h3>
+          </div>
+          <div class="card-body">
+            <ul class="content-list">
+              <li>Alphabet recognition</li>
+              <li>Writing simple words</li>
+              <li>Counting 1–100</li>
+              <li>Basic problem solving</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /age3 -->
+
+
+  <!-- ── 7–12 YEARS ──────────────────────────────── -->
+  <div class="age-panel" id="age7">
+
+    <div class="cat-grid reveal">
+      <button class="cat-btn cc-mint active-cat" data-panel="p7-milestones" onclick="showPanel('age7','p7-milestones')">
+        <span class="cat-icon">📈</span><span class="cat-name">Milestones</span>
+      </button>
+      <button class="cat-btn cc-sky" data-panel="p7-activities" onclick="showPanel('age7','p7-activities')">
+        <span class="cat-icon">🎮</span><span class="cat-name">Activities</span>
+      </button>
+      <button class="cat-btn cc-lav" data-panel="p7-nutrition" onclick="showPanel('age7','p7-nutrition')">
+        <span class="cat-icon">🥦</span><span class="cat-name">Nutrition</span>
+      </button>
+      <button class="cat-btn cc-peach" data-panel="p7-sleep" onclick="showPanel('age7','p7-sleep')">
+        <span class="cat-icon">🌙</span><span class="cat-name">Sleep</span>
+      </button>
+      <button class="cat-btn cc-rose" data-panel="p7-growth" onclick="showPanel('age7','p7-growth')">
+        <span class="cat-icon">⚖️</span><span class="cat-name">Growth</span>
+      </button>
+      <button class="cat-btn cc-amber" data-panel="p7-problems" onclick="showPanel('age7','p7-problems')">
+        <span class="cat-icon">🩺</span><span class="cat-name">Health</span>
+      </button>
+      <button class="cat-btn cc-lav" data-panel="p7-school" onclick="showPanel('age7','p7-school')">
+        <span class="cat-icon">🏫</span><span class="cat-name">School</span>
+      </button>
+    </div>
+
+    <div class="content-area">
+
+      <div class="content-panel active" id="p7-milestones">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--mint-light)">
+            <span class="card-head-icon">📈</span>
+            <h3>Developmental Milestones — 7 to 12 Years</h3>
+          </div>
+          <div class="card-body">
+            <ul class="content-list">
+              <li>Reads independently</li>
+              <li>Solves complex problems</li>
+              <li>Understands time and money</li>
+              <li>Makes friendships</li>
+              <li>Improved coordination</li>
+              <li>Increased independence</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-panel" id="p7-activities">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--sky-light)">
+            <span class="card-head-icon">🎮</span>
+            <h3>Activities — 7 to 12 Years</h3>
+          </div>
+          <div class="card-body">
+            <ul class="content-list">
+              <li>Sports</li>
+              <li>Cycling</li>
+              <li>Swimming</li>
+              <li>Reading books</li>
+              <li>Science projects</li>
+              <li>Art and crafts</li>
+              <li>Coding games</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-panel" id="p7-nutrition">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--lav-light)">
+            <span class="card-head-icon">🥦</span>
+            <h3>Nutrition — 7 to 12 Years</h3>
+          </div>
+          <div class="card-body">
+            <div class="sub-section">
+              <div class="sub-title">Protein</div>
+              <ul class="content-list">
+                <li>Eggs</li><li>Chicken</li><li>Fish</li><li>Beans</li>
+              </ul>
+            </div>
+            <div class="sub-section">
+              <div class="sub-title">Healthy Carbohydrates</div>
+              <ul class="content-list">
+                <li>Rice</li><li>Whole wheat bread</li><li>Oats</li>
+              </ul>
+            </div>
+            <div class="sub-section">
+              <div class="sub-title">Healthy Fats</div>
+              <ul class="content-list">
+                <li>Nuts</li><li>Seeds</li><li>Avocado</li>
+              </ul>
+            </div>
+            <div class="sub-section">
+              <div class="sub-title">Vitamins</div>
+              <ul class="content-list">
+                <li>Fruits</li><li>Vegetables</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-panel" id="p7-sleep">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--peach-light)">
+            <span class="card-head-icon">🌙</span>
+            <h3>Sleep — 7 to 12 Years</h3>
+          </div>
+          <div class="card-body">
+            <div style="display:flex;flex-wrap:wrap;gap:.5rem">
+              <div class="sleep-badge">🎒 7–12 years: 9–12 hrs/day</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-panel" id="p7-growth">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--rose-light)">
+            <span class="card-head-icon">⚖️</span>
+            <h3>Average Weight — 7 to 12 Years</h3>
+          </div>
+          <div class="card-body">
+            <table class="data-table">
+              <thead><tr><th>Age</th><th>Weight</th></tr></thead>
+              <tbody>
+                <tr><td>7 Years</td><td>22–31 kg</td></tr>
+                <tr><td>8 Years</td><td>25–35 kg</td></tr>
+                <tr><td>9 Years</td><td>28–40 kg</td></tr>
+                <tr><td>10 Years</td><td>31–45 kg</td></tr>
+                <tr><td>11 Years</td><td>34–50 kg</td></tr>
+                <tr><td>12 Years</td><td>38–55 kg</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-panel" id="p7-problems">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--amber-light)">
+            <span class="card-head-icon">🩺</span>
+            <h3>Common Problems — 7 to 12 Years</h3>
+          </div>
+          <div class="card-body">
+            <div class="problem-grid">
+
+              <div class="problem-card">
+                <div class="problem-title">🤕 Headache</div>
+                <div class="prob-section-label">Symptoms</div>
+                <ul class="content-list">
+                  <li>Head pain</li>
+                  <li>Light sensitivity</li>
+                </ul>
+                <div class="prob-section-label">Solution</div>
+                <ul class="content-list">
+                  <li>Water</li>
+                  <li>Rest</li>
+                  <li>Medical advice if frequent</li>
+                </ul>
+              </div>
+
+              <div class="problem-card">
+                <div class="problem-title">🦠 Stomach Infection</div>
+                <div class="prob-section-label">Symptoms</div>
+                <ul class="content-list">
+                  <li>Vomiting</li>
+                  <li>Diarrhea</li>
+                  <li>Abdominal pain</li>
+                </ul>
+                <div class="prob-section-label">Solution</div>
+                <ul class="content-list">
+                  <li>ORS</li>
+                  <li>Hydration</li>
+                  <li>Doctor consultation</li>
+                </ul>
+              </div>
+
+              <div class="problem-card">
+                <div class="problem-title">💨 Asthma</div>
+                <div class="prob-section-label">Symptoms</div>
+                <ul class="content-list">
+                  <li>Wheezing</li>
+                  <li>Shortness of breath</li>
+                  <li>Coughing</li>
+                </ul>
+                <div class="prob-section-label">Solution</div>
+                <ul class="content-list">
+                  <li>Prescribed inhalers</li>
+                  <li>Avoid triggers</li>
+                  <li>Medical follow-up</li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-panel" id="p7-school">
+        <div class="content-card">
+          <div class="card-head" style="background:var(--lav-light)">
+            <span class="card-head-icon">🏫</span>
+            <h3>School & Mental Development — 7 to 12 Years</h3>
+          </div>
+          <div class="card-body">
+            <ul class="content-list">
+              <li>Time management</li>
+              <li>Teamwork</li>
+              <li>Responsibility</li>
+              <li>Critical thinking</li>
+              <li>Emotional control</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /age7 -->
+
+  <!-- EMERGENCY WARNING -->
+  <div class="warning-box reveal">
+    <h3>🚨 Emergency Warning Signs — All Ages</h3>
+    <p style="font-size:.85rem;color:#7F1D1D;margin-bottom:1rem">Seek urgent medical help if a child has any of the following:</p>
+    <div class="warning-grid">
+      <div class="warning-item">Difficulty breathing</div>
+      <div class="warning-item">Blue lips</div>
+      <div class="warning-item">Seizures</div>
+      <div class="warning-item">Severe dehydration</div>
+      <div class="warning-item">Unconsciousness</div>
+      <div class="warning-item">High fever in young infants</div>
+      <div class="warning-item">Persistent vomiting</div>
+      <div class="warning-item">Severe allergic reaction</div>
+    </div>
+  </div>
+
+</div><!-- /sec -->
+
+<!-- FEATURES -->
+<div class="sec" id="features">
+  <div class="sec-hd reveal">
+    <div class="sec-eye">Why parents love it</div>
+    <div class="sec-title">Everything you need, in one place</div>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-card fc-g reveal d1"><div class="fi fi-g">🎯</div><div><h3>Age-matched guidance</h3><p>Content tailored to your child's stage from birth through age 12 — the right info at the right time.</p></div></div>
+    <div class="feat-card fc-b reveal d2"><div class="fi fi-b">🩺</div><div><h3>Health & illness tracker</h3><p>Know when to call the doctor, track symptoms, and understand common childhood illnesses.</p></div></div>
+    <div class="feat-card fc-p reveal d3"><div class="fi fi-p">💊</div><div><h3>Medication reference</h3><p>Safe dosage guides so you give medicine accurately and with complete confidence.</p></div></div>
+    <div class="feat-card fc-o reveal d4"><div class="fi fi-o">🌱</div><div><h3>Milestone checklist</h3><p>Track physical, cognitive, and social milestones — celebrate every step of the journey.</p></div></div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="testi-wrap" id="reviews">
+  <div class="testi-inner">
+    <div class="sec-hd reveal">
+      <div class="sec-eye">Parent reviews</div>
+      <div class="sec-title">What parents are saying</div>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal d1">
+        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+        <p class="testi-q">"This app has been my go-to since my daughter was born. The milestone guides are clear and reassuring — I always know what to expect next."</p>
+        <div class="testi-author"><div class="testi-av av-m">👩</div><div><div class="testi-name">Sara M.</div><div class="testi-role">Mum of a 2-year-old</div></div></div>
+      </div>
+      <div class="testi-card reveal d2">
+        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+        <p class="testi-q">"The medication dosage tool saved me so much stress at 2am. Simple, accurate, and reliable — exactly what a parent needs."</p>
+        <div class="testi-author"><div class="testi-av av-s">👨</div><div><div class="testi-name">James K.</div><div class="testi-role">Dad of three</div></div></div>
+      </div>
+      <div class="testi-card reveal d3">
+        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+        <p class="testi-q">"I love how it covers nutrition and sleep together. Helped me build a routine for my son in just one week. Absolutely recommend."</p>
+        <div class="testi-author"><div class="testi-av av-l">👩</div><div><div class="testi-name">Priya L.</div><div class="testi-role">First-time parent</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <a href="#" class="foot-brand"><div class="foot-logo">🌿</div>Child Care Guide App</a>
+    <p class="foot-copy">Made with <span>♥</span> for parents everywhere · Birth to 12 years</p>
+    <nav class="foot-links">
+      <a href="#guide">Guide</a>
+      <a href="#features">Features</a>
+      <a href="#reviews">Reviews</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+/* ── Reveal on scroll ─── */
+const ro = new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+/* ── Hamburger ─── */
+const ham=document.getElementById('hamburger'),nav=document.getElementById('navLinks');
+ham.addEventListener('click',()=>nav.classList.toggle('open'));
+
+/* ── Age tabs ─── */
+document.querySelectorAll('.age-tab').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.age-tab').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected','false')});
+    document.querySelectorAll('.age-panel').forEach(p=>p.classList.remove('active'));
+    this.classList.add('active');
+    this.setAttribute('aria-selected','true');
+    document.getElementById(this.dataset.age).classList.add('active');
+  });
+});
+
+/* ── Category panel switching ─── */
+function showPanel(ageId, panelId){
+  const ageEl = document.getElementById(ageId);
+  ageEl.querySelectorAll('.content-panel').forEach(p=>p.classList.remove('active'));
+  ageEl.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active-cat'));
+  document.getElementById(panelId).classList.add('active');
+  event.currentTarget.classList.add('active-cat');
+}
+
+/* ── Banner fallback ─── */
+const bi=document.querySelector('.hero-banner'),ph=document.getElementById('ph');
+if(bi){
+  if(bi.complete&&bi.naturalWidth>0){bi.style.display='block';ph.style.display='none'}
+  else if(bi.complete&&bi.naturalWidth===0){bi.style.display='none';ph.style.display='flex'}
+  else bi.addEventListener('load',()=>{bi.style.display='block';ph.style.display='none'});
+}
+</script>
+</body>
+</html>
